@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Product } from "./product.model";
 
 @Controller('products')
 export class ProductController{
@@ -28,8 +29,8 @@ export class ProductController{
         return `Product updated!`
     }
 
-    @Delete()
-    delete(): string {
+    @Delete(':id')
+    delete(@Param() product): string {
         return `Product deleted !`
     }
 
