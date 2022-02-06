@@ -1,42 +1,44 @@
 import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/sequelize";
 import { Product } from "./product.model";
 
 @Injectable()
 export class ProductsService {
-    products: Product[] = [
-        new Product("COO1", "PS4 CONTROLLER", 224.00),
-        new Product("COO2", "XBOX CONTROLLER", 468.04),
-        new Product("COO3", "MAD MAX PS4 GAME", 24.40),
-        new Product("COO4", "FORZA HORIZON 2 XBOX GAME", 97.40),
-        new Product("COO5", "METRO 2033 PS4 GAME", 43.35),
-    ]
+    
+    constructor( @InjectModel(Product)  private productModel: typeof Product) { }
 
     
-    All(): Product[] {
-        return this.products;
+    async All(): Promise<Product[]> {
+        return this.productModel.findAll()
     }
 
-    getById(id: number): Product{
-        return this.products[id];
+    async getById(id: number): Promise<Product>{
+        return this.productModel.findByPk(id);
     }
 
-    getByName(name: string): Product {
-        return this.products.find( p => p.name === name);
+    async getByName(name: string): Promise<Product> {
+        return this.productModel.findOne(name)
     }
     
     
-    create(product: Product): void {
-        this.products.push(product);
+    async create(product: Product) {
+        this.productModel.create(product);
     }
 
     
-    update(product: Product): Product{
-        return product
+    async update(product: Product): Promise<[number, Product[]]>{
+        return this.productModel.update(product, {
+            where: {
+                id: product.id
+            }
+        })
     }
 
     
-    delete(id: number): void {
-         this.products.pop()
+    async delete(id: number) {
+         const product: Product = await this.getById(id)
+         if (product)
+            product.destroy()
     }
 
      
