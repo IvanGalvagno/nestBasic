@@ -1,3 +1,14 @@
+## This is a sample of using nest with Sequelize and MySQL. It was not implemented any type of Tests as it wasn't the propurse of the project.
+
+I highly recommend use [Postman](https://www.postman.com/downloads/) or [Insomnia](https://insomnia.rest/download) to run and try out the routes created. Do not forget to install 
+[MySQL](https://dev.mysql.com/downloads/installer/) in your machine, otherwise it won't work. After install and setup your MySQL, create a database with the name of your choice and go at the root of the project and create a file .env, in the .env you need to create the follow values: 
+* DATABASE_HOST=localhost
+* DATABASE_USER=<your_user>
+* DATABASE_PASSWORD<your_db_password>
+*  DATABASE_NAME=<your_choose>. 
+  
+Done, now run the application and be happy !
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
